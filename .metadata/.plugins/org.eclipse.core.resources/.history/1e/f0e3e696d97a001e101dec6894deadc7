@@ -1,0 +1,26 @@
+package company.entities;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+//@SpringBootApplication
+public class TestCategory implements CommandLineRunner{
+
+	@Autowired
+	private CategoryRepo categoryRepo;
+	
+
+	public static void main(String[] args) {
+		SpringApplication.run(TestCategory.class, args);
+	}
+	
+	@Override
+	public void run(String... args) throws Exception {
+		System.out.println(categoryRepo.getClass());
+	
+		Category cat=categoryRepo.findByCategoryCode("he");
+		System.out.println(cat);
+	}
+}

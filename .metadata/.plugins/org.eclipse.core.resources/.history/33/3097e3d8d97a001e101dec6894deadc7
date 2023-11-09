@@ -1,0 +1,5 @@
+package company.entities;
+
+public class PaymentModeRepo {
+
+}

@@ -1,0 +1,26 @@
+package company.entities;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class TestExpenditure implements CommandLineRunner {
+
+	@Autowired
+	private ExpenditureRepo expRepo;
+
+	public static void main(String[] args) {
+		SpringApplication.run(TestExpenditure.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		for (var p : expRepo.findAll()) {
+			 System.out.printf("%10d %-10s %-20s %-20s\n",p.getId(),p.getCatCode());
+			// ,p.getCategory().getCategoryName(),p.getDepartment().getDepartmentName());
+//			System.out.println(p);
+		}
+	}
+}

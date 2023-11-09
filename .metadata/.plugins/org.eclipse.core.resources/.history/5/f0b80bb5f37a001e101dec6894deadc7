@@ -1,0 +1,85 @@
+package company.entities;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity(name = "company.entities.Department")
+@Table(name = "departments")
+public class Department {
+	@Id
+	@Column(name = "deptcode")
+	private int DepartmentCode;
+
+	@Column(name = "deptname")
+	private String DepartmentName;
+
+	@Column(name = "hod")
+	private String hod;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
+	private List<Expenditure> expenditure = new ArrayList<Expenditure>();
+
+	public int getDeptCode() {
+		return DepartmentCode;
+	}
+
+	public void setDeptCode(int deptCode) {
+		this.DepartmentCode = deptCode;
+	}
+
+	public String getDeptName() {
+		return DepartmentName;
+	}
+
+	public void setDeptName(String deptName) {
+		this.DepartmentName = deptName;
+	}
+
+	public String getHod() {
+		return hod;
+	}
+
+	public void setHod(String hod) {
+		this.hod = hod;
+	}
+
+	@Override
+	public String toString() {
+		return "Department [deptCode=" + DepartmentCode + ", deptName=" + DepartmentName + ", hod=" + hod + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(DepartmentCode, DepartmentName, hod);
+	}
+	
+
+	public List<Expenditure> getExpenditure() {
+		return expenditure;
+	}
+
+	public void setExpenditure(List<Expenditure> expenditure) {
+		this.expenditure = expenditure;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Department other = (Department) obj;
+		return DepartmentCode == other.DepartmentCode && Objects.equals(DepartmentName, other.DepartmentName) && Objects.equals(hod, other.hod);
+	}
+
+}

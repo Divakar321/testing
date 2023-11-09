@@ -1,0 +1,78 @@
+package company.entities;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity // To make this class as Entity
+@Table(name = "categories") // To map the categories table in database with this entity
+public class Category {
+	@Id // Primary Key
+	@Column(name = "category_code")
+	private String categoryCode;
+
+	@Column(name = "category_name")
+	private String categoryName;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category") // Establishes a relationship with Expenditure
+	@JsonIgnore
+	private List<Expenditure> expenditures = new ArrayList<Expenditure>();
+
+	public String getCategoryCode() {
+		return categoryCode;
+	}
+
+	public void setCategoryCode(String categoryCode) {
+		this.categoryCode = categoryCode;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+	public List<Expenditure> getExpenditures() {
+		return expenditures;
+	}
+
+	public void setExpenditures(List<Expenditure> expenditures) {
+		this.expenditures = expenditures;
+	}
+
+	@Override
+	public String toString() {
+		return "Category [categoryCode=" + categoryCode + ", categoryName=" + categoryName + ", expenditures="
+				+ expenditures + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(categoryCode, categoryName, expenditures);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Category other = (Category) obj;
+		return Objects.equals(categoryCode, other.categoryCode) && Objects.equals(categoryName, other.categoryName)
+				&& Objects.equals(expenditures, other.expenditures);
+	}
+
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Company client</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<script>
+		function getPayments() {
+			$.ajax({
+				type: "GET",
+				url: "http://localhost:9999/payments",
+				headers: {
+					"Authorization": "Basic " + btoa("admin:admin")
+				},
+				success: function (result) {
+					// Convert the JSON response to a formatted string
+					var formattedResult = JSON.stringify(result, null, 2);
+					// Update the content of a div with the id "resultDiv" with the formatted JSON
+					$("#resultDiv").text(formattedResult);
+				}
+			});
+		}
+	</script>
+</head>
+<body>
+	<h1>Company Client</h1>
+	<button onclick="getPayments()">Get Payments</button>
+	<div id="resultDiv"></div>
+</body>
+</html>
